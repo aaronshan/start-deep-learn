@@ -1,0 +1,41 @@
+# _*_ coding:utf-8 _*_
+
+
+from perceptron import Activator
+from perceptron import Perceptron
+
+
+def get_train_data():
+    """
+    :return: 返回or真值表的数据
+    """
+    # 输入向量
+    input_vectors = [[1, 1], [1, 0], [0, 1], [0, 0]]
+    # 输入向量对应的真值[[1, 1] => 1, [1, 0] => 1, [0, 1] => 1, [0, 0] => 0]
+    labels = [1, 1, 1, 0]
+
+    return input_vectors, labels
+
+
+def train_or_perceptron():
+    """
+    使用or真值表来训练感知机
+    :return: 训练好的感知机
+    """
+    # 创建一个感知机，输入参数为2个（and是2元函数），激活函数选择relu
+    p = Perceptron(2, Activator.f)
+    # 开始训练，迭代100次，学习率为0.01
+    input_vectors, labels = get_train_data()
+    p.train(input_vectors, labels, 100, 0.01)
+    # 返回训练好的感知机
+    return p
+
+if __name__ == '__main__':
+    # 训练感知机
+    or_perceptron = train_or_perceptron()
+    print or_perceptron
+    # 测试
+    print "1 and 1 => %f" % or_perceptron.predict([1, 1])
+    print "1 and 0 => %f" % or_perceptron.predict([1, 0])
+    print "0 and 1 => %f" % or_perceptron.predict([0, 1])
+    print "0 and 0 => %f" % or_perceptron.predict([0, 0])
